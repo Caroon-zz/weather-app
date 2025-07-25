@@ -38,36 +38,45 @@ export function Weather({ zip, onDescription, onWeatherCode }: WeatherProps) {
     }
   }, [weather, onDescription, onWeatherCode]);
 
-  if (zipLoading) {
-    return <ActivityIndicator />;
+  function renderStatus(): React.ReactNode {
+    if (zipLoading) {
+      return <ActivityIndicator />;
+    }
+    if (zipError) {
+      return <Text>Invalid ZIP code.</Text>;
+    }
+    if (weatherLoading) {
+      return <ActivityIndicator />;
+    }
+    if (weatherError) {
+      return <Text>Weather fetch failed.</Text>;
+    }
+    if (!weather) {
+      return null;
+    }
+    return undefined;
   }
-  if (zipError) {
-    return <Text>Invalid ZIP code.</Text>;
-  }
-  if (weatherLoading) {
-    return <ActivityIndicator />;
-  }
-  if (weatherError) {
-    return <Text>Weather fetch failed.</Text>;
-  }
-  if (!weather) {
-    return null;
+
+  const statusNode = renderStatus();
+  
+  if (statusNode !== undefined) {
+    return statusNode;
   }
 
   return (
     <View style={weatherCardStyle.card}>
-      <Text style={weatherCardStyle.description}>{weather.description}</Text>
+      <Text style={weatherCardStyle.description}>{weather!.description}</Text>
       <View style={weatherCardStyle.row}>
         <Text style={weatherCardStyle.label}>Temperature:</Text>
-        <Text style={weatherCardStyle.value}>{weather.temperature !== undefined ? Number(weather.temperature).toPrecision(2) : '--'}°C</Text>
+        <Text style={weatherCardStyle.value}>{weather!.temperature !== undefined ? Number(weather!.temperature).toPrecision(2) : '--'}°C</Text>
       </View>
       <View style={weatherCardStyle.row}>
         <Text style={weatherCardStyle.label}>Wind Speed:</Text>
-        <Text style={weatherCardStyle.value}>{weather.windspeed !== undefined ? Number(weather.windspeed).toPrecision(2) : '--'} km/h</Text>
+        <Text style={weatherCardStyle.value}>{weather!.windspeed !== undefined ? Number(weather!.windspeed).toPrecision(2) : '--'} km/h</Text>
       </View>
       <View style={weatherCardStyle.row}>
         <Text style={weatherCardStyle.label}>Weather Code:</Text>
-        <Text style={weatherCardStyle.value}>{weather.weathercode}</Text>
+        <Text style={weatherCardStyle.value}>{weather!.weathercode}</Text>
       </View>
     </View>
   );
