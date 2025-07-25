@@ -1,5 +1,3 @@
-
-
 import axios from "axios";
 import { fetchWeatherApi } from "openmeteo";
 import { getWeatherDescription } from "../utils/weatherCodeToDescription";
@@ -9,7 +7,6 @@ export const fetchLatLon = async (zip: string) => {
   const { latitude, longitude } = res.data.places[0];
   return { lat: latitude, lon: longitude };
 };
-
 
 export const fetchWeather = async (lat: string, lon: string) => {
   const params = {

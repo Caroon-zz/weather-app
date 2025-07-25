@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import { fetchLatLon, fetchWeather } from "../api/index";
 import weatherCardStyle from "../styles/weatherCardStyle";
@@ -27,10 +27,14 @@ export function Weather({ zip, onDescription, onWeatherCode }: WeatherProps) {
     enabled: !!latLon,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (weather) {
-      if (onDescription) onDescription(weather.description);
-      if (onWeatherCode && typeof weather.weathercode === 'number') onWeatherCode(weather.weathercode);
+      if (onDescription) {
+        onDescription(weather.description);
+      }
+      if (onWeatherCode && typeof weather.weathercode === 'number') {
+        onWeatherCode(weather.weathercode);
+      }
     }
   }, [weather, onDescription, onWeatherCode]);
 
