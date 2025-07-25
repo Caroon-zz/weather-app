@@ -4,10 +4,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-import { Weather } from "./components/weather";
 import { getWeatherEmoji } from "./utils/weatherEmoji";
+import { Weather } from "./components/weather";
 
-export const title = "Weather App";
 const queryClient = new QueryClient();
 
 export default function AwesomeWeather() {

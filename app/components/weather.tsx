@@ -34,11 +34,21 @@ export function Weather({ zip, onDescription, onWeatherCode }: WeatherProps) {
     }
   }, [weather, onDescription, onWeatherCode]);
 
-  if (zipLoading) return <ActivityIndicator />;
-  if (zipError) return <Text>Invalid ZIP code.</Text>;
-  if (weatherLoading) return <ActivityIndicator />;
-  if (weatherError) return <Text>Weather fetch failed.</Text>;
-  if (!weather) return null;
+  if (zipLoading) {
+    return <ActivityIndicator />;
+  }
+  if (zipError) {
+    return <Text>Invalid ZIP code.</Text>;
+  }
+  if (weatherLoading) {
+    return <ActivityIndicator />;
+  }
+  if (weatherError) {
+    return <Text>Weather fetch failed.</Text>;
+  }
+  if (!weather) {
+    return null;
+  }
 
   return (
     <View style={weatherCardStyle.card}>
