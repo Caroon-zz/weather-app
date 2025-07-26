@@ -2,14 +2,15 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
-import { Animated, Button, Easing, Text, TextInput, View } from "react-native";
+import { Animated, Easing, Text, TextInput } from "react-native";
+import { WeatherButton } from "./common/weatherButton";
 import { Weather } from "./components/weather";
 import styles from "./styles/indexStyle";
 import { getWeatherEmoji } from "./utils/weatherEmoji";
 
 const queryClient = new QueryClient();
 
-export default function AwesomeWeather() {
+const AwesomeWeather = () => {
   const navigation = useNavigation();
  
   useEffect(() => {
@@ -47,14 +48,13 @@ export default function AwesomeWeather() {
           placeholderTextColor="#aaa"
           maxLength={5}
         />
-        <View style={styles.buttonWrapper}>
-          <Button
-            title="Get Weather"
-            onPress={() => setSubmittedZip(zipCode)}
-            color="#007AFF"
-            disabled={!isValidZip}
-          />
-        </View>
+        <WeatherButton
+          title="Get Weather"
+          onPress={() => setSubmittedZip(zipCode)}
+          color="#007AFF"
+          disabled={!isValidZip}
+          style={styles.buttonWrapper}
+        />
         {submittedZip ?
           <Weather 
             zip={submittedZip} 
@@ -63,9 +63,10 @@ export default function AwesomeWeather() {
       </LinearGradient>
     </QueryClientProvider>
   );
-}
+};
+export default AwesomeWeather;
 
-function AnimatedWeatherEmoji({ code, desc }: { code: number; desc: string }) {
+const AnimatedWeatherEmoji = ({ code, desc }: { code: number; desc: string }) => {
   const spinAnim = useRef(new Animated.Value(0)).current;
   const flyAnim = useRef(new Animated.Value(-200)).current;
 
@@ -101,4 +102,4 @@ function AnimatedWeatherEmoji({ code, desc }: { code: number; desc: string }) {
       {getWeatherEmoji(code)}
     </Animated.Text>
   );
-}
+};

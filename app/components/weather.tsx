@@ -23,7 +23,7 @@ export function Weather({ zip, onDescription, onWeatherCode }: WeatherProps) {
     isLoading: weatherLoading,
   } = useQuery({
     queryKey: ["weather", latLon?.lat, latLon?.lon],
-    queryFn: () => latLon ? fetchWeather(latLon.lat, latLon.lon) : Promise.reject(),
+    queryFn: () => latLon ? fetchWeather(String(latLon.lat), String(latLon.lon)) : Promise.reject(),
     enabled: !!latLon,
   });
 
@@ -38,7 +38,7 @@ export function Weather({ zip, onDescription, onWeatherCode }: WeatherProps) {
     }
   }, [weather, onDescription, onWeatherCode]);
 
-  function renderStatus(): React.ReactNode {
+  const renderStatus = (): React.ReactNode => {
     if (zipLoading) {
       return <ActivityIndicator />;
     }
@@ -55,29 +55,43 @@ export function Weather({ zip, onDescription, onWeatherCode }: WeatherProps) {
       return null;
     }
     return undefined;
-  }
+  };
 
   const statusNode = renderStatus();
   
-  if (statusNode !== undefined) {
-    return statusNode;
-  }
+  const renderDescription = () => (
+    <Text style={weatherCardStyle.description}>{weather!.description}</Text>
+  );
 
-  return (
-    <View style={weatherCardStyle.card}>
-      <Text style={weatherCardStyle.description}>{weather!.description}</Text>
-      <View style={weatherCardStyle.row}>
-        <Text style={weatherCardStyle.label}>Temperature:</Text>
-        <Text style={weatherCardStyle.value}>{weather!.temperature !== undefined ? Number(weather!.temperature).toPrecision(2) : '--'}°C</Text>
-      </View>
-      <View style={weatherCardStyle.row}>
-        <Text style={weatherCardStyle.label}>Wind Speed:</Text>
-        <Text style={weatherCardStyle.value}>{weather!.windspeed !== undefined ? Number(weather!.windspeed).toPrecision(2) : '--'} km/h</Text>
-      </View>
-      <View style={weatherCardStyle.row}>
-        <Text style={weatherCardStyle.label}>Weather Code:</Text>
-        <Text style={weatherCardStyle.value}>{weather!.weathercode}</Text>
-      </View>
+  const renderTemperature = () => (
+    <View style={weatherCardStyle.row}>
+      <Text style={weatherCardStyle.label}>Temperature:</Text>
+      <Text style={weatherCardStyle.value}>{weather!.temperature !== undefined ? Number(weather!.temperature).toPrecision(2) : '--'}°C</Text>
     </View>
   );
+
+  const renderWindSpeed = () => (
+    <View style={weatherCardStyle.row}>
+      <Text style={weatherCardStyle.label}>Wind Speed:</Text>
+      <Text style={weatherCardStyle.value}>{weather!.windspeed !== undefined ? Number(weather!.windspeed).toPrecision(2) : '--'} km/h</Text>
+    </View>
+  );
+
+  const renderWeatherCode = () => (
+    <View style={weatherCardStyle.row}>
+      <Text style={weatherCardStyle.label}>Weather Code:</Text>
+      <Text style={weatherCardStyle.value}>{weather!.weathercode}</Text>
+    </View>
+  );
+
+  return statusNode !== undefined ? (
+  statusNode
+) : (
+  <View style={weatherCardStyle.card}>
+    {renderDescription()}
+    {renderTemperature()}
+    {renderWindSpeed()}
+    {renderWeatherCode()}
+  </View>
+);
 }

@@ -101,9 +101,12 @@ const weatherCodeToDescription: Record<number, string> = {
   99: "Thunderstorm, heavy, with hail at time of observation"
 };
 
-export function getWeatherDescription(code: number | undefined): string {
+const getWeatherDescription = (code: number | undefined): string => {
   if (typeof code !== "number") {
     return "Unknown";
   }
   return weatherCodeToDescription[code] || "Unknown";
-}
+};
+
+export { getWeatherDescription };
+

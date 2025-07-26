@@ -2,13 +2,13 @@ import axios from "axios";
 import { fetchWeatherApi } from "openmeteo";
 import { getWeatherDescription } from "../utils/weatherCodeToDescription";
 
-export const fetchLatLon = async (zip: string) => {
+const fetchLatLon = async (zip: string): Promise<{ lat: number; lon: number }> => {
   const res = await axios.get(`https://api.zippopotam.us/us/${zip}`);
   const { latitude, longitude } = res.data.places[0];
   return { lat: latitude, lon: longitude };
 };
 
-export const fetchWeather = async (lat: string, lon: string) => {
+const fetchWeather = async (lat: string, lon: string): Promise<any> => {
   const params = {
     latitude: [parseFloat(lat)],
     longitude: [parseFloat(lon)],
@@ -28,3 +28,6 @@ export const fetchWeather = async (lat: string, lon: string) => {
     description: getWeatherDescription(weathercode)
   };
 };
+
+export { fetchLatLon, fetchWeather };
+
