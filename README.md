@@ -1,50 +1,169 @@
-# Welcome to your Expo app 👋
+# Weather App 🌤️
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A professional React Native weather application built with Expo Router, TypeScript, and modern development practices.
 
-## Get started
+## 🏗️ Architecture
 
-1. Install dependencies
+This project follows professional React Native development patterns with a feature-based architecture:
 
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # Base UI components
+│   └── index.ts        # Component exports
+├── features/           # Feature-based modules
+│   └── weather/        # Weather feature
+│       ├── components/ # Feature-specific components
+│       ├── hooks/      # Custom React hooks
+│       ├── services/   # API and data services
+│       ├── types/      # TypeScript interfaces
+│       ├── utils/      # Feature utilities
+│       └── index.ts    # Feature exports
+├── providers/          # React context providers
+├── styles/            # Global styles and themes
+├── constants/         # App-wide constants
+└── ...
+```
+
+## 🚀 Features
+
+- **Modern Architecture**: Feature-based organization with clear separation of concerns
+- **TypeScript**: Full type safety throughout the application
+- **Custom Hooks**: Reusable data fetching with React Query
+- **Professional Styling**: Consistent design system with proper theming
+- **Error Handling**: Comprehensive error boundaries and user feedback
+- **Animated UI**: Smooth animations and transitions
+- **Code Quality**: ESLint configuration with strict TypeScript rules
+
+## 🛠️ Technology Stack
+
+- **Framework**: Expo Router (React Native)
+- **Language**: TypeScript
+- **State Management**: React Query (TanStack Query)
+- **Styling**: React Native StyleSheet with modular organization
+- **HTTP Client**: Axios
+- **Weather API**: Open-Meteo
+- **Location API**: Zippopotam.us
+- **Testing**: Jest with React Native Testing Library
+- **Code Quality**: ESLint + TypeScript strict mode
+
+## 📦 Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd weather-app
+   ```
+
+2. **Install dependencies**
    ```bash
    npm install
    ```
 
-2. Start the app
-
+3. **Start the development server**
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+## 🎯 Usage
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+1. Enter a valid 5-digit US ZIP code
+2. Tap "Get Weather" to fetch current weather data
+3. View detailed weather information including:
+   - Temperature
+   - Weather description
+   - Wind speed
+   - Weather code
+   - Animated weather emoji
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## 🧪 Testing
 
 ```bash
-npm run reset-project
+# Run tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:coverage
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🏛️ Project Structure Details
 
-## Learn more
+### Components (`src/components/`)
+- **UI Components**: Reusable interface elements
+- **Compound Components**: Complex components built from primitives
+- **Layout Components**: Structural elements for consistent layouts
 
-To learn more about developing your project with Expo, look at the following resources:
+### Features (`src/features/`)
+Each feature module contains:
+- **Components**: Feature-specific UI components
+- **Hooks**: Custom React hooks for data and state management
+- **Services**: API calls and data transformation
+- **Types**: TypeScript interfaces and type definitions
+- **Utils**: Helper functions and utilities
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Providers (`src/providers/`)
+- **QueryProvider**: React Query configuration and setup
+- **ThemeProvider**: Design system and theming (future enhancement)
 
-## Join the community
+### Styles (`src/styles/`)
+- **Modular Styles**: Feature-specific style modules
+- **Design Tokens**: Colors, spacing, typography constants
+- **Responsive Design**: Screen size and device-specific styling
 
-Join our community of developers creating universal apps.
+## 🔧 Development Guidelines
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### Code Organization
+- Group related functionality into feature modules
+- Keep components small and focused on single responsibilities
+- Use custom hooks for complex logic and data fetching
+- Implement proper TypeScript types for all data structures
+
+### Styling
+- Use modular StyleSheet objects
+- Follow consistent naming conventions
+- Implement responsive design patterns
+- Maintain design system consistency
+
+### Data Management
+- Use React Query for server state management
+- Implement proper loading and error states
+- Cache API responses appropriately
+- Handle network failures gracefully
+
+## 📱 Platform Support
+
+- **iOS**: Full support with native performance
+- **Android**: Full support with native performance  
+- **Web**: Progressive Web App capabilities
+
+## 🔮 Future Enhancements
+
+- [ ] Location-based weather detection
+- [ ] Weather forecast (7-day)
+- [ ] Weather alerts and notifications
+- [ ] Multiple location support
+- [ ] Dark mode theme
+- [ ] Weather maps integration
+- [ ] Offline data caching
+- [ ] Widget support
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Weather data provided by [Open-Meteo](https://open-meteo.com/)
+- ZIP code geocoding by [Zippopotam.us](http://zippopotam.us/)
+- Built with [Expo](https://expo.dev/) and [React Native](https://reactnative.dev/)

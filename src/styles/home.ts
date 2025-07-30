@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-const styles = StyleSheet.create({
+export const homeStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
@@ -47,10 +47,16 @@ const styles = StyleSheet.create({
     fontSize: 64,
     marginBottom: 8,
   },
+  emojiContainer: {
+    height: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
   errorText: {
     color: "#d00",
     marginBottom: 8,
+    textAlign: "center",
+    paddingHorizontal: 20,
   },
 });
-
-export default styles;

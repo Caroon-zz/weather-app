@@ -1,5 +1,6 @@
-const getWeatherEmoji = (code?: number): string => {
+export const getWeatherEmoji = (code?: number): string => {
   if (typeof code !== 'number') return "";
+  
   switch (true) {
     case [0, 1].includes(code):
       return "☀️";
@@ -41,6 +42,3 @@ const getWeatherEmoji = (code?: number): string => {
       return "❔";
   }
 };
-
-export { getWeatherEmoji };
-

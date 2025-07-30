@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, StyleSheet, View } from "react-native";
 
-interface WeatherButtonProps {
+export interface WeatherButtonProps {
   title: string;
   onPress: () => void;
   color?: string;
@@ -9,7 +9,7 @@ interface WeatherButtonProps {
   style?: object;
 }
 
-const WeatherButton: React.FC<WeatherButtonProps> = ({
+export const WeatherButton: React.FC<WeatherButtonProps> = ({
   title,
   onPress,
   color = "#007AFF",
@@ -33,5 +33,3 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
 });
-
-export { WeatherButton };

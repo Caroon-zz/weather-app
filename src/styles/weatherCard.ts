@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-const weatherCardStyle = StyleSheet.create({
+export const weatherCardStyles = StyleSheet.create({
   card: {
     marginTop: 24,
     backgroundColor: '#fff',
@@ -41,6 +41,19 @@ const weatherCardStyle = StyleSheet.create({
     flex: 1,
     textAlign: 'right',
   },
+  loadingContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: 120,
+  },
+  errorContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: 120,
+  },
+  errorText: {
+    color: '#d00',
+    textAlign: 'center',
+    fontSize: 16,
+  },
 });
-
-export default weatherCardStyle;
