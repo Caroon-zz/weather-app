@@ -27,6 +27,7 @@ export interface WeatherCardProps {
   zip: string;
   onDescription?: (desc: string) => void;
   onWeatherCode?: (code: number) => void;
+  unitSystem?: "metric" | "imperial";
 }
 
 export interface AnimatedWeatherEmojiProps {

@@ -83,7 +83,6 @@ export const weatherTabStyles = StyleSheet.create({
     color: "#666",
   },
   errorContainer: {
-    marginTop: 20,
     backgroundColor: "rgba(255, 0, 0, 0.1)",
     borderRadius: 8,
     padding: 16,
@@ -92,7 +91,6 @@ export const weatherTabStyles = StyleSheet.create({
   },
   errorText: {
     color: "#d00",
-    marginBottom: 8,
     textAlign: "center",
     paddingHorizontal: 20,
   },

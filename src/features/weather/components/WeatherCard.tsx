@@ -1,61 +1,23 @@
-import React, { useEffect } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import React from "react";
+import { Text, View } from "react-native";
+import {
+  convertTemperature,
+  convertWindSpeed,
+  getTemperatureUnit,
+  getWindSpeedUnit,
+} from "../../../utils/unitConversions";
 import { useWeatherRedux } from "../redux/useWeatherRedux";
 import { weatherCardStyles } from "../styles/weatherCard";
 import type { WeatherCardProps } from "../types";
 
 export const WeatherCard: React.FC<WeatherCardProps> = ({
-  zip,
-  onDescription,
-  onWeatherCode,
+  unitSystem = "metric",
 }) => {
-  const { weatherData, isLoading, error, fetchWeather } = useWeatherRedux();
-
-  useEffect(() => {
-    if (zip && zip.length === 5) {
-      fetchWeather(zip);
-    }
-  }, [zip, fetchWeather]);
-
-  useEffect(() => {
-    if (weatherData) {
-      onDescription?.(weatherData.description);
-      onWeatherCode?.(weatherData.weathercode);
-    }
-  }, [weatherData, onDescription, onWeatherCode]);
-
-  if (isLoading) {
-    return (
-      <View
-        style={[weatherCardStyles.card, weatherCardStyles.loadingContainer]}
-      >
-        <ActivityIndicator size="large" color="#007AFF" />
-        <Text style={[weatherCardStyles.label, { marginTop: 12 }]}>
-          Loading weather data...
-        </Text>
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={[weatherCardStyles.card, weatherCardStyles.errorContainer]}>
-        <Text style={weatherCardStyles.errorText}>
-          {error.includes("coordinates")
-            ? "Invalid ZIP code. Please try again."
-            : "Failed to fetch weather data. Please try again."}
-        </Text>
-      </View>
-    );
-  }
+  const { weatherData } = useWeatherRedux();
 
   if (!weatherData) {
     return null;
   }
-
-  const formatValue = (value: number, precision: number = 2): string => {
-    return value !== undefined ? Number(value).toPrecision(precision) : "--";
-  };
 
   return (
     <View style={weatherCardStyles.card}>
@@ -66,14 +28,15 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({
       <View style={weatherCardStyles.row}>
         <Text style={weatherCardStyles.label}>Temperature:</Text>
         <Text style={weatherCardStyles.value}>
-          {formatValue(weatherData.temperature)}°C
+          {Math.round(convertTemperature(weatherData.temperature, unitSystem))}
+          {getTemperatureUnit(unitSystem)}
         </Text>
       </View>
 
       <View style={weatherCardStyles.row}>
         <Text style={weatherCardStyles.label}>Wind Speed:</Text>
         <Text style={weatherCardStyles.value}>
-          {formatValue(weatherData.windspeed)} km/h
+          {convertWindSpeed(weatherData.windspeed, unitSystem).toFixed(1)} {getWindSpeedUnit(unitSystem)}
         </Text>
       </View>
 

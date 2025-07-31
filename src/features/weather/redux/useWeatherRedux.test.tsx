@@ -1,7 +1,6 @@
 import { fireEvent, render } from "@testing-library/react-native";
 import { Button, Text } from "react-native";
 import { useWeatherRedux } from "./useWeatherRedux";
-
 import * as reduxHooks from "../../../hooks/redux";
 
 jest.mock("../../../hooks/redux", () => ({

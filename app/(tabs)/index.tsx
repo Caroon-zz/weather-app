@@ -5,15 +5,10 @@ import { Text, TextInput, View } from "react-native";
 import { AnimatedWeatherEmoji, WeatherButton } from "../../src/components";
 import { ZIP_CODE_LENGTH } from "../../src/constants/globalConstants";
 import { useSettingsRedux } from "../../src/features/settings/redux/useSettingsRedux";
+import { WeatherCard } from "../../src/features/weather/components/WeatherCard";
 import { useWeatherRedux } from "../../src/features/weather/redux/useWeatherRedux";
 import { useTabBarPadding } from "../../src/hooks/useTabBar";
 import { weatherTabStyles } from "../../src/styles/weatherTabStyles";
-import {
-  convertTemperature,
-  convertWindSpeed,
-  getTemperatureUnit,
-  getWindSpeedUnit,
-} from "../../src/utils/unitConversions";
 
 const WeatherApp = () => {
   const navigation = useNavigation();
@@ -84,24 +79,11 @@ const WeatherApp = () => {
         style={weatherTabStyles.buttonWrapper}
       />
 
-      {submittedZip && weatherData && !isLoading && (
-        <View style={weatherTabStyles.weatherInfo}>
-          <Text style={weatherTabStyles.description}>
-            {weatherData.description}
-          </Text>
-          <Text style={weatherTabStyles.windSpeed}>
-            Temperature:{" "}
-            {Math.round(
-              convertTemperature(weatherData.temperature, unitSystem),
-            )}
-            {getTemperatureUnit(unitSystem)}
-          </Text>
-          <Text style={weatherTabStyles.windSpeed}>
-            Wind Speed:{" "}
-            {convertWindSpeed(weatherData.windspeed, unitSystem).toFixed(1)}{" "}
-            {getWindSpeedUnit(unitSystem)}
-          </Text>
-        </View>
+      {submittedZip && !isLoading && (
+        <WeatherCard 
+          zip={submittedZip} 
+          unitSystem={unitSystem}
+        />
       )}
 
       {error && (
