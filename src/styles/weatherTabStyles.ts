@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const homeStyles = StyleSheet.create({
+export const weatherTabStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
@@ -48,10 +48,47 @@ export const homeStyles = StyleSheet.create({
     marginBottom: 8,
   },
   emojiContainer: {
-    height: 80,
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: 100,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  weatherInfo: {
+    alignItems: "center",
+    marginTop: 20,
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    borderRadius: 12,
+    padding: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  temperature: {
+    fontSize: 48,
+    fontWeight: "bold",
+    color: "#007AFF",
     marginBottom: 8,
+  },
+  description: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#333",
+    marginBottom: 8,
+    textAlign: "center",
+  },
+  windSpeed: {
+    fontSize: 16,
+    color: "#666",
+  },
+  errorContainer: {
+    marginTop: 20,
+    backgroundColor: "rgba(255, 0, 0, 0.1)",
+    borderRadius: 8,
+    padding: 16,
+    borderColor: "#d00",
+    borderWidth: 1,
   },
   errorText: {
     color: "#d00",

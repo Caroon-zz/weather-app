@@ -4,33 +4,68 @@ A professional React Native weather application built with Expo Router, TypeScri
 
 ## 🏗️ Architecture
 
-This project follows professional React Native development patterns with a feature-based architecture:
+This project follows professional React Native development patterns with a feature-based architecture and Redux Toolkit + Redux Saga for state management. Here is a comprehensive overview of the main folders:
 
 ```
 src/
-├── components/          # Reusable UI components
-│   ├── ui/             # Base UI components
-│   └── index.ts        # Component exports
-├── features/           # Feature-based modules
-│   └── weather/        # Weather feature
-│       ├── components/ # Feature-specific components
-│       ├── hooks/      # Custom React hooks
-│       ├── services/   # API and data services
-│       ├── types/      # TypeScript interfaces
-│       ├── utils/      # Feature utilities
-│       └── index.ts    # Feature exports
-├── providers/          # React context providers
-├── styles/            # Global styles and themes
-├── constants/         # App-wide constants
-└── ...
+├── components/           # Shared, reusable UI components
+│   ├── ui/               # Base UI primitives (e.g., WeatherButton, AnimatedWeatherEmoji)
+│   └── index.ts          # Barrel file for component exports
+│
+├── features/             # Feature-based modules (domain-driven)
+│   ├── weather/          # Weather feature
+│   │   ├── components/   # Weather-specific UI components (WeatherCard, etc.)
+│   │   ├── hooks/        # Custom React hooks (useWeather, useWeatherRedux, etc.)
+│   │   ├── redux/        # Redux hooks and integration for weather
+│   │   ├── sagas/        # Redux Saga logic for async flows
+│   │   ├── services/     # API and data-fetching logic (e.g., weatherService)
+│   │   ├── slices/       # Redux slices (weatherSlice, etc.)
+│   │   ├── types/        # TypeScript interfaces and types for weather
+│   │   ├── utils/        # Weather-specific utilities (weatherCodeToDescription, weatherEmoji, etc.)
+│   │   └── tests/        # Feature-specific tests (optional, colocated or in __tests__)
+│   └── settings/         # Settings feature (mirrors weather structure)
+│
+├── providers/            # React context providers (ReduxProvider, QueryProvider, etc.)
+│
+├── styles/               # Global and feature-specific styles, design tokens, and theming
+│   ├── index.ts          # Main style exports
+│   └── ...               # Style modules (e.g., weatherTabStyles.ts)
+│
+├── constants/            # App-wide constants (e.g., globalConstants.ts, index.ts)
+│
+├── hooks/                # Global custom hooks (not feature-specific)
+│   ├── redux.ts          # Global Redux hooks (useAppDispatch, useAppSelector)
+│   └── ...
+│
+├── store/                # Redux store configuration and root saga
+│   ├── index.ts          # Store setup
+│   ├── sagas/            # Root saga and saga composition
+│   └── slices/           # (For future global slices shared across features)
+│
+├── utils/                # Global utility functions (unitConversions, etc.)
+│
+└──
+
+assets/                   # Static assets (images, fonts, icons)
+app/                      # Expo Router entry points and navigation structure
+    (tabs)/               # Tab-based navigation screens and tests
+    _layout.tsx           # App layout
+    index.tsx             # App entry point
+
 ```
+
+**Key Points:**
+
+- Each feature (e.g., weather, settings) is fully modular, containing its own Redux logic, sagas, hooks, types, and tests.
+- Shared logic and UI live in `components/`, `hooks/`, `styles/`, and `utils/`.
+- The `app/` folder contains Expo Router navigation and screen entry points.
+- Static assets (images, fonts) are in the `assets/` folder.
 
 ## 🚀 Features
 
 - **Modern Architecture**: Feature-based organization with clear separation of concerns
 - **TypeScript**: Full type safety throughout the application
 - **Custom Hooks**: Reusable data fetching with React Query
-- **Professional Styling**: Consistent design system with proper theming
 - **Error Handling**: Comprehensive error boundaries and user feedback
 - **Animated UI**: Smooth animations and transitions
 - **Code Quality**: ESLint configuration with strict TypeScript rules
@@ -39,7 +74,7 @@ src/
 
 - **Framework**: Expo Router (React Native)
 - **Language**: TypeScript
-- **State Management**: React Query (TanStack Query)
+- **State Management**: Redux Toolkit + Redux Saga
 - **Styling**: React Native StyleSheet with modular organization
 - **HTTP Client**: Axios
 - **Weather API**: Open-Meteo
@@ -50,17 +85,20 @@ src/
 ## 📦 Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd weather-app
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Start the development server**
+
    ```bash
    npx expo start
    ```
@@ -76,10 +114,10 @@ src/
    - Weather code
    - Animated weather emoji
 
-## 🧪 Testing
+## 🧪 Testing & Code Quality
 
 ```bash
-# Run tests
+# Run all tests
 npm test
 
 # Run tests in watch mode
@@ -87,28 +125,43 @@ npm run test:watch
 
 # Run tests with coverage
 npm run test:coverage
+
+# Format code with Prettier
+npx prettier --write .
 ```
+
+- **Unit tests** for all Redux slices, sagas, hooks, and UI components using Jest and React Native Testing Library
+- **Redux Saga** and async logic tested with `redux-saga` test helpers
+- **Prettier** and **ESLint** for code formatting and linting
 
 ## 🏛️ Project Structure Details
 
 ### Components (`src/components/`)
+
 - **UI Components**: Reusable interface elements
 - **Compound Components**: Complex components built from primitives
 - **Layout Components**: Structural elements for consistent layouts
 
 ### Features (`src/features/`)
+
 Each feature module contains:
-- **Components**: Feature-specific UI components
-- **Hooks**: Custom React hooks for data and state management
-- **Services**: API calls and data transformation
-- **Types**: TypeScript interfaces and type definitions
-- **Utils**: Helper functions and utilities
+
+- **components/**: Feature-specific UI components
+- **hooks/**: Custom React hooks for data and Redux state (e.g., `useWeather`)
+- **redux/**: Redux hooks and integration (e.g., `useWeatherRedux`)
+- **sagas/**: Redux Saga side effects and async logic
+- **slices/**: Redux slices for state management
+- **services/**: API calls and data transformation
+- **types/**: TypeScript interfaces and type definitions
+- **utils/**: Helper functions and utilities
 
 ### Providers (`src/providers/`)
-- **QueryProvider**: React Query configuration and setup
-- **ThemeProvider**: Design system and theming (future enhancement)
+
+- **ReduxProvider**: Redux store configuration and setup
+- **QueryProvider**: (Optional) React Query configuration (legacy or for future enhancements/demonstration)
 
 ### Styles (`src/styles/`)
+
 - **Modular Styles**: Feature-specific style modules
 - **Design Tokens**: Colors, spacing, typography constants
 - **Responsive Design**: Screen size and device-specific styling
@@ -116,47 +169,43 @@ Each feature module contains:
 ## 🔧 Development Guidelines
 
 ### Code Organization
+
 - Group related functionality into feature modules
 - Keep components small and focused on single responsibilities
-- Use custom hooks for complex logic and data fetching
+- Use custom hooks for Redux and async logic (e.g., `useWeatherRedux`, `useSettingsRedux`)
 - Implement proper TypeScript types for all data structures
+- Co-locate tests with features or in `__tests__` folders
 
 ### Styling
+
 - Use modular StyleSheet objects
 - Follow consistent naming conventions
 - Implement responsive design patterns
 - Maintain design system consistency
 
-### Data Management
-- Use React Query for server state management
-- Implement proper loading and error states
-- Cache API responses appropriately
-- Handle network failures gracefully
+### State & Data Management
+
+- Use Redux Toolkit for state management
+- Use Redux Saga for async flows and side effects
+- Implement proper loading and error states in Redux
+- Handle network failures gracefully in sagas and services
+
+### Code Quality
+
+- Use Prettier for code formatting (`npx prettier --write .`)
+- Use ESLint for linting and code consistency
+- Write unit tests for all slices, sagas, hooks, and components
 
 ## 📱 Platform Support
 
 - **iOS**: Full support with native performance
-- **Android**: Full support with native performance  
+- **Android**: Full support with native performance
 - **Web**: Progressive Web App capabilities
 
 ## 🔮 Future Enhancements
 
 - [ ] Location-based weather detection
 - [ ] Weather forecast (7-day)
-- [ ] Weather alerts and notifications
-- [ ] Multiple location support
-- [ ] Dark mode theme
-- [ ] Weather maps integration
-- [ ] Offline data caching
-- [ ] Widget support
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## 📄 License
 

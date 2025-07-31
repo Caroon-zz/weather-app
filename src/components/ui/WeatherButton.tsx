@@ -17,12 +17,7 @@ export const WeatherButton: React.FC<WeatherButtonProps> = ({
   style = {},
 }) => (
   <View style={[styles.buttonWrapper, style]}>
-    <Button
-      title={title}
-      onPress={onPress}
-      color={color}
-      disabled={disabled}
-    />
+    <Button title={title} onPress={onPress} color={color} disabled={disabled} />
   </View>
 );
 

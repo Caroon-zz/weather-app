@@ -8,7 +8,7 @@
     "scheme": "weather",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-     "splash": {
+    "splash": {
       "image": "./assets/images/tornado.png",
       "resizeMode": "contain",
       "backgroundColor": "#e3f0ff"
@@ -17,6 +17,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "weather",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/tornado.png",
         "backgroundColor": "#ffffff"

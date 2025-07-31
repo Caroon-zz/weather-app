@@ -1,17 +1,17 @@
 import { Stack } from "expo-router";
 import React from "react";
-import { QueryProvider } from "../src/providers/QueryProvider";
+import { ReduxProvider } from "../src/providers/ReduxProvider";
 
 export default function RootLayout() {
   return (
-    <QueryProvider>
-      <Stack 
+    <ReduxProvider>
+      <Stack
         screenOptions={{
           headerShown: false,
         }}
       >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
-    </QueryProvider>
+    </ReduxProvider>
   );
 }

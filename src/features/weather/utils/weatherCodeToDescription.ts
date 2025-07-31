@@ -98,7 +98,7 @@ const weatherCodeToDescription: Record<number, string> = {
   96: "Thunderstorm, slight or moderate, with hail at time of observation",
   97: "Thunderstorm, heavy, without hail but with rain and/or snow at time of observation",
   98: "Thunderstorm combined with duststorm or sandstorm at time of observation",
-  99: "Thunderstorm, heavy, with hail at time of observation"
+  99: "Thunderstorm, heavy, with hail at time of observation",
 };
 
 export const getWeatherDescription = (code: number | undefined): string => {

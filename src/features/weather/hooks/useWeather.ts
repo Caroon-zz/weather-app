@@ -1,47 +1,47 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchLatLon, fetchWeather } from "../services/weatherService";
-import type { Coordinates, WeatherData } from "../types";
+import { useEffect } from "react";
+import { useWeatherRedux } from "../redux/useWeatherRedux";
+import type { Coordinates } from "../types";
 
 export const useCoordinates = (zipCode: string) => {
-  return useQuery<Coordinates, Error>({
-    queryKey: ["coordinates", zipCode],
-    queryFn: () => fetchLatLon(zipCode),
-    enabled: !!zipCode && zipCode.length === 5,
-    staleTime: 1000 * 60 * 60,
-    retry: 2,
-  });
+  const { coordinates, isLoading, error, fetchWeather } = useWeatherRedux();
+
+  useEffect(() => {
+    if (zipCode && zipCode.length === 5) {
+      fetchWeather(zipCode);
+    }
+  }, [zipCode, fetchWeather]);
+
+  return {
+    data: coordinates,
+    isLoading,
+    error,
+  };
 };
 
 export const useWeatherData = (coordinates?: Coordinates) => {
-  return useQuery<WeatherData, Error>({
-    queryKey: ["weather", coordinates?.lat, coordinates?.lon],
-    queryFn: () => 
-      coordinates 
-        ? fetchWeather(String(coordinates.lat), String(coordinates.lon))
-        : Promise.reject(new Error("No coordinates provided")),
-    enabled: !!coordinates,
-    staleTime: 1000 * 60 * 10,
-    retry: 2,
-  });
+  const { weatherData, isLoading, error } = useWeatherRedux();
+
+  return {
+    data: weatherData,
+    isLoading,
+    error,
+  };
 };
 
 export const useWeatherByZip = (zipCode: string) => {
-  const { 
-    data: coordinates, 
-    error: coordinatesError, 
-    isLoading: coordinatesLoading 
-  } = useCoordinates(zipCode);
+  const { weatherData, coordinates, isLoading, error, fetchWeather } =
+    useWeatherRedux();
 
-  const { 
-    data: weather, 
-    error: weatherError, 
-    isLoading: weatherLoading 
-  } = useWeatherData(coordinates);
+  useEffect(() => {
+    if (zipCode && zipCode.length === 5) {
+      fetchWeather(zipCode);
+    }
+  }, [zipCode, fetchWeather]);
 
   return {
-    weather,
+    weather: weatherData,
     coordinates,
-    isLoading: coordinatesLoading || weatherLoading,
-    error: coordinatesError || weatherError,
+    isLoading,
+    error,
   };
 };
