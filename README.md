@@ -1,6 +1,6 @@
 # Weather App 🌤️
 
-A React Native weather application built with Expo Router, TypeScript, and modern development practices.
+A React Native weather application built with Expo Router, TypeScript, and modern development practices.  It primarily serves as a testbed and demonstrator.
 
 ## 🏗️ Architecture
 
