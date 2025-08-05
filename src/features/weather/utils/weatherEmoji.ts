@@ -1,53 +1,30 @@
-export const getWeatherEmoji = (code?: number): string => {
-  if (typeof code !== "number") return "";
-
-  switch (true) {
-    case [0, 1].includes(code):
-      return "☀️";
-    case [2, 3].includes(code):
-      return "⛅";
-    case [
-      4, 5, 10, 11, 12, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 28, 29,
-    ].includes(code):
-      return "🌫️";
-    case [6, 7, 8, 9, 30, 31, 32, 33, 34, 35].includes(code):
-      return "🌪️🌫️";
-    case [13, 17, 18, 19, 29].includes(code):
-      return "⚡️";
-    case [14, 15, 16, 25, 26, 27, 51, 53, 55, 56, 57, 54, 52, 50].includes(
-      code,
-    ):
-      return "🌦️";
-    case [
-      20, 21, 22, 23, 24, 58, 59, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78,
-      79, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94,
-    ].includes(code):
-      return "❄️";
-    case [61, 63, 65, 66, 67, 80, 81, 82, 60, 62, 64, 21, 22, 23, 24].includes(
-      code,
-    ):
-      return "🌧️";
-    case [95, 96, 97, 98, 99].includes(code):
-      return "⛈️";
-    case [85, 86, 89, 90, 87, 88].includes(code):
-      return "🌨️";
-    case [96, 99].includes(code):
-      return "⛈️🌨️";
-    case [77].includes(code):
-      return "❄️";
-    case [76].includes(code):
-      return "✨";
-    case [79].includes(code):
-      return "🧊";
-    case [36, 37, 38, 39].includes(code):
-      return "🌬️";
-    case [81, 82].includes(code):
-      return "🌧️🌧️";
-    case [83, 84].includes(code):
-      return "🌨️🌧️";
-    case [98].includes(code):
-      return "🌪️⛈️";
-    default:
-      return "❔";
-  }
+export const iconRequireMap: Record<number, any> = {
+  0: require("../../../../assets/images/icons/clear_4x.png"),
+  1: require("../../../../assets/images/icons/mostly-clear_4x.png"),
+  2: require("../../../../assets/images/icons/partly-cloudy_4x.png"),
+  3: require("../../../../assets/images/icons/overcast_4x.png"),
+  45: require("../../../../assets/images/icons/fog_4x.png"),
+  48: require("../../../../assets/images/icons/rime-fog_4x.png"),
+  51: require("../../../../assets/images/icons/light-drizzle_4x.png"),
+  53: require("../../../../assets/images/icons/moderate-drizzle_4x.png"),
+  55: require("../../../../assets/images/icons/dense-drizzle_4x.png"),
+  56: require("../../../../assets/images/icons/light-freezing-drizzle_4x.png"),
+  57: require("../../../../assets/images/icons/dense-freezing-drizzle_4x.png"),
+  61: require("../../../../assets/images/icons/light-rain_4x.png"),
+  63: require("../../../../assets/images/icons/moderate-rain_4x.png"),
+  65: require("../../../../assets/images/icons/heavy-rain_4x.png"),
+  66: require("../../../../assets/images/icons/light-freezing-rain_4x.png"),
+  67: require("../../../../assets/images/icons/heavy-freezing-rain_4x.png"),
+  71: require("../../../../assets/images/icons/slight-snowfall_4x.png"),
+  73: require("../../../../assets/images/icons/moderate-snowfall_4x.png"),
+  75: require("../../../../assets/images/icons/heavy-snowfall_4x.png"),
+  77: require("../../../../assets/images/icons/snowflake_4x.png"),
+  80: require("../../../../assets/images/icons/light-rain_4x.png"),
+  81: require("../../../../assets/images/icons/moderate-rain_4x.png"),
+  82: require("../../../../assets/images/icons/heavy-rain_4x.png"),
+  85: require("../../../../assets/images/icons/slight-snowfall_4x.png"),
+  86: require("../../../../assets/images/icons/heavy-snowfall_4x.png"),
+  95: require("../../../../assets/images/icons/thunderstorm_4x.png"),
+  96: require("../../../../assets/images/icons/thunderstorm-with-hail_4x.png"),
+  99: require("../../../../assets/images/icons/thunderstorm-with-hail_4x.png"),
 };

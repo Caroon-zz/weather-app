@@ -1,6 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { Coordinates, WeatherData } from "../types";
 
+export interface WeatherRequestPayload {
+  zipCode?: string;
+  lat?: number;
+  lon?: number;
+}
+
 export interface WeatherState {
   zipCode: string;
   submittedZip: string;
@@ -30,12 +36,24 @@ const weatherSlice = createSlice({
     setZipCode: (state, action: PayloadAction<string>) => {
       state.zipCode = action.payload;
     },
-    fetchWeatherRequest: (state, action: PayloadAction<string>) => {
-      state.submittedZip = action.payload;
-      state.isLoadingCoordinates = true;
+    fetchWeatherRequest: (
+      state,
+      action: PayloadAction<WeatherRequestPayload>,
+    ) => {
+      const { zipCode, lat, lon } = action.payload;
+      if (zipCode) {
+        state.submittedZip = zipCode;
+        state.isLoadingCoordinates = true;
+      } else if (lat !== undefined && lon !== undefined) {
+        state.zipCode = ""; // Clear the zip code input field
+        state.submittedZip = "";
+        state.coordinates = { lat, lon };
+        state.isLoadingCoordinates = false;
+        state.isLoadingWeather = true;
+      }
+
       state.coordinatesError = null;
       state.weatherError = null;
-      state.coordinates = null;
       state.weatherData = null;
     },
     fetchCoordinatesSuccess: (state, action: PayloadAction<Coordinates>) => {

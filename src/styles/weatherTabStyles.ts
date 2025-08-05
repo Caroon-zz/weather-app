@@ -12,7 +12,6 @@ export const weatherTabStyles = StyleSheet.create({
     fontSize: 36,
     fontWeight: "bold",
     color: "#007AFF",
-    marginBottom: 32,
     letterSpacing: 1.5,
   },
   input: {
@@ -34,7 +33,7 @@ export const weatherTabStyles = StyleSheet.create({
   },
   buttonWrapper: {
     width: 240,
-    marginBottom: 24,
+    marginBottom: 8,
     borderRadius: 8,
     overflow: "hidden",
     shadowColor: "#007AFF",
@@ -44,7 +43,8 @@ export const weatherTabStyles = StyleSheet.create({
     elevation: 2,
   },
   emoji: {
-    fontSize: 64,
+    width: 96,
+    height: 96,
     marginBottom: 8,
   },
   emojiContainer: {
@@ -93,5 +93,20 @@ export const weatherTabStyles = StyleSheet.create({
     color: "#d00",
     textAlign: "center",
     paddingHorizontal: 20,
+  },
+  loadingBox: {
+    marginTop: 24,
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    padding: 24,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.12,
+    shadowRadius: 12,
+    elevation: 6,
+    alignItems: "center",
+    justifyContent: "center",
+    minWidth: 362,
+    minHeight: 190,
   },
 });

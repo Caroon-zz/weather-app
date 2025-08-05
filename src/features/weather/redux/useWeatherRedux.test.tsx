@@ -1,7 +1,7 @@
 import { fireEvent, render } from "@testing-library/react-native";
 import { Button, Text } from "react-native";
-import { useWeatherRedux } from "./useWeatherRedux";
 import * as reduxHooks from "../../../hooks/redux";
+import { useWeatherRedux } from "./useWeatherRedux";
 
 jest.mock("../../../hooks/redux", () => ({
   useAppDispatch: jest.fn(),
@@ -10,9 +10,9 @@ jest.mock("../../../hooks/redux", () => ({
 
 jest.mock("../slices/weatherSlice", () => ({
   setZipCode: jest.fn((zip) => ({ type: "weather/setZipCode", payload: zip })),
-  fetchWeatherRequest: jest.fn((zip) => ({
+  fetchWeatherRequest: jest.fn((payload) => ({
     type: "weather/fetchWeatherRequest",
-    payload: zip,
+    payload: payload,
   })),
   clearWeatherData: jest.fn(() => ({ type: "weather/clearWeatherData" })),
 }));
@@ -93,7 +93,33 @@ describe("useWeatherRedux", () => {
     fireEvent.press(getByText("Fetch"));
     expect(dispatch).toHaveBeenCalledWith({
       type: "weather/fetchWeatherRequest",
-      payload: "54321",
+      payload: {
+        zipCode: "54321",
+        lat: undefined,
+        lon: undefined,
+      },
+    });
+  });
+
+  it("fetchWeather with coordinates dispatches fetchWeatherRequest", () => {
+    function TestComponent() {
+      const { fetchWeather } = useWeatherRedux();
+      return (
+        <Button
+          title="Fetch"
+          onPress={() => fetchWeather(undefined, 40.7128, -74.006)}
+        />
+      );
+    }
+    const { getByText } = render(<TestComponent />);
+    fireEvent.press(getByText("Fetch"));
+    expect(dispatch).toHaveBeenCalledWith({
+      type: "weather/fetchWeatherRequest",
+      payload: {
+        zipCode: undefined,
+        lat: 40.7128,
+        lon: -74.006,
+      },
     });
   });
 

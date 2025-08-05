@@ -29,13 +29,28 @@ describe("weatherSlice", () => {
   });
 
   it("fetchWeatherRequest sets submittedZip and resets loading/errors", () => {
-    const state = weatherReducer(initialState, fetchWeatherRequest("12345"));
+    const state = weatherReducer(
+      initialState,
+      fetchWeatherRequest({ zipCode: "12345" }),
+    );
     expect(state.submittedZip).toBe("12345");
     expect(state.isLoadingCoordinates).toBe(true);
     expect(state.coordinatesError).toBeNull();
     expect(state.weatherError).toBeNull();
     expect(state.coordinates).toBeNull();
     expect(state.weatherData).toBeNull();
+  });
+
+  it("fetchWeatherRequest with coordinates sets coordinates and starts weather loading", () => {
+    const state = weatherReducer(
+      initialState,
+      fetchWeatherRequest({ lat: 40.7128, lon: -74.006 }),
+    );
+    expect(state.coordinates).toEqual({ lat: 40.7128, lon: -74.006 });
+    expect(state.isLoadingCoordinates).toBe(false);
+    expect(state.isLoadingWeather).toBe(true);
+    expect(state.zipCode).toBe(""); // Should clear zip code
+    expect(state.submittedZip).toBe(""); // Should clear submitted zip
   });
 
   it("fetchCoordinatesSuccess sets coordinates and loading flags", () => {

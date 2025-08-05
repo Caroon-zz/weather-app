@@ -1,7 +1,6 @@
 import { runSaga } from "redux-saga";
 import * as weatherService from "../services/weatherService";
 import {
-  fetchCoordinatesFailure,
   fetchCoordinatesSuccess,
   fetchWeatherFailure,
   fetchWeatherSuccess,
@@ -34,7 +33,7 @@ describe("fetchWeatherSaga", () => {
         dispatch: (action) => dispatched.push(action),
       },
       fetchWeatherSaga,
-      { type: "weather/fetchWeatherRequest", payload: "12345" },
+      { type: "weather/fetchWeatherRequest", payload: { zipCode: "12345" } },
     ).toPromise();
     expect(dispatched).toEqual([
       fetchCoordinatesSuccess(mockCoordinates),
@@ -42,21 +41,20 @@ describe("fetchWeatherSaga", () => {
     ]);
   });
 
-  it("dispatches fetchCoordinatesFailure if fetchLatLon fails with coordinates error", async () => {
+  it("dispatches failure action when fetchLatLon fails", async () => {
+    const errorMessage = "Failed to fetch coordinates";
     jest
       .spyOn(weatherService, "fetchLatLon")
-      .mockRejectedValue(new Error("coordinates not found"));
+      .mockRejectedValue(new Error(errorMessage));
     const dispatched: any[] = [];
     await runSaga(
       {
         dispatch: (action) => dispatched.push(action),
       },
       fetchWeatherSaga,
-      { type: "weather/fetchWeatherRequest", payload: "12345" },
+      { type: "weather/fetchWeatherRequest", payload: { zipCode: "12345" } },
     ).toPromise();
-    expect(dispatched).toEqual([
-      fetchCoordinatesFailure("coordinates not found"),
-    ]);
+    expect(dispatched).toEqual([fetchWeatherFailure(errorMessage)]);
   });
 
   it("dispatches fetchWeatherFailure if fetchWeather fails with other error", async () => {
@@ -72,7 +70,7 @@ describe("fetchWeatherSaga", () => {
         dispatch: (action) => dispatched.push(action),
       },
       fetchWeatherSaga,
-      { type: "weather/fetchWeatherRequest", payload: "12345" },
+      { type: "weather/fetchWeatherRequest", payload: { zipCode: "12345" } },
     ).toPromise();
     expect(dispatched).toEqual([
       fetchCoordinatesSuccess(mockCoordinates),
@@ -90,8 +88,64 @@ describe("fetchWeatherSaga", () => {
         dispatch: (action) => dispatched.push(action),
       },
       fetchWeatherSaga,
-      { type: "weather/fetchWeatherRequest", payload: "12345" },
+      { type: "weather/fetchWeatherRequest", payload: { zipCode: "12345" } },
     ).toPromise();
     expect(dispatched).toEqual([fetchWeatherFailure("Unknown error occurred")]);
+  });
+
+  describe("coordinate-based weather requests", () => {
+    it("dispatches success actions when fetchWeather succeeds with coordinates", async () => {
+      jest
+        .spyOn(weatherService, "fetchWeather")
+        .mockResolvedValue(mockWeatherData);
+      const dispatched: any[] = [];
+      await runSaga(
+        {
+          dispatch: (action) => dispatched.push(action),
+        },
+        fetchWeatherSaga,
+        {
+          type: "weather/fetchWeatherRequest",
+          payload: { lat: 40.7128, lon: -74.006 },
+        },
+      ).toPromise();
+      expect(dispatched).toEqual([fetchWeatherSuccess(mockWeatherData)]);
+    });
+
+    it("dispatches failure action when fetchWeather fails with coordinates", async () => {
+      const errorMessage = "Failed to fetch weather with coordinates";
+      jest
+        .spyOn(weatherService, "fetchWeather")
+        .mockRejectedValue(new Error(errorMessage));
+      const dispatched: any[] = [];
+      await runSaga(
+        {
+          dispatch: (action) => dispatched.push(action),
+        },
+        fetchWeatherSaga,
+        {
+          type: "weather/fetchWeatherRequest",
+          payload: { lat: 40.7128, lon: -74.006 },
+        },
+      ).toPromise();
+      expect(dispatched).toEqual([fetchWeatherFailure(errorMessage)]);
+    });
+
+    it("dispatches failure action when payload has neither zipCode nor coordinates", async () => {
+      const dispatched: any[] = [];
+      await runSaga(
+        {
+          dispatch: (action) => dispatched.push(action),
+        },
+        fetchWeatherSaga,
+        {
+          type: "weather/fetchWeatherRequest",
+          payload: {},
+        },
+      ).toPromise();
+      expect(dispatched).toEqual([
+        fetchWeatherFailure("Please provide either a zip code or coordinates"),
+      ]);
+    });
   });
 });

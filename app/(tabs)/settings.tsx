@@ -43,8 +43,19 @@ export default function SettingsScreen() {
           <View style={settingsStyles.infoSection}>
             <Text style={settingsStyles.infoTitle}>About</Text>
             <Text style={settingsStyles.infoText}>Weather App v1.0.0</Text>
-            <Text style={settingsStyles.infoText}>Built with Expo & React Native</Text>
-            <Text style={settingsStyles.infoText}>Weather data by Open-Meteo</Text>
+            <Text style={settingsStyles.infoText}>
+              Built with Expo & React Native
+            </Text>
+            <Text style={settingsStyles.infoText}>
+              Weather data by Open-Meteo
+            </Text>
+            <Text style={settingsStyles.infoText}>
+              Weather code mapping inspired by weather-sense
+              (github.com/erikflowers/weather-sense)
+            </Text>
+            <Text style={settingsStyles.infoText}>
+              Weather icons by Airycons (airycons.com)
+            </Text>
           </View>
         </View>
       </ScrollView>

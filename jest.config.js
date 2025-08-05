@@ -1,7 +1,14 @@
 module.exports = {
   preset: "jest-expo",
-  setupFilesAfterEnv: ["@testing-library/jest-native/extend-expect"],
+  setupFilesAfterEnv: [
+    "@testing-library/jest-native/extend-expect",
+    "<rootDir>/jest.setup.js",
+  ],
   testPathIgnorePatterns: ["/node_modules/", "/dist/"],
+  watchman: false,
+  watch: false,
+  watchAll: false,
+  bail: true,
   transformIgnorePatterns: [
     "node_modules/(?!(jest-)?react-native|@react-native|@react-navigation|expo(nent)?|@expo|expo-font|expo-asset|@expo/vector-icons|@unimodules|unimodules|sentry-expo|native-base)",
   ],
@@ -16,5 +23,42 @@ module.exports = {
     "^@/styles/(.*)$": "<rootDir>/src/styles/$1",
     "^@/constants/(.*)$": "<rootDir>/src/constants/$1",
     "^@/providers/(.*)$": "<rootDir>/src/providers/$1",
+  },
+  collectCoverage: false,
+  collectCoverageFrom: [
+    "src/**/*.{ts,tsx}",
+    "app/**/*.{ts,tsx}",
+    "!src/**/*.d.ts",
+    "!src/**/*.test.{ts,tsx}",
+    "!src/**/__tests__/**",
+    "!src/store/index.ts",
+    "!src/components/index.ts",
+    "!src/constants/index.ts",
+    "!src/features/*/index.ts",
+    "!src/hooks/index.ts",
+    "!src/styles/index.ts",
+
+    "!**/_layout.tsx",
+    "!src/hooks/redux.ts",
+    "!src/providers/QueryProvider.tsx",
+    "!src/providers/ReduxProvider.tsx",
+    "!src/store/sagas/index.ts",
+    "!src/features/weather/types/index.ts",
+  ],
+  coverageDirectory: "coverage",
+  coverageReporters: ["text", "lcov", "html", "json"],
+  coverageThreshold: {
+    global: {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+    "./src/features/weather/": {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80,
+    },
   },
 };

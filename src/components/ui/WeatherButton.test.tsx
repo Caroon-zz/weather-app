@@ -35,7 +35,6 @@ describe("WeatherButton", () => {
     const { getByText } = render(
       <WeatherButton {...defaultProps} color="#FF0000" />,
     );
-    // React Native Button does not expose color prop directly, but this ensures no crash
     expect(getByText("Test Button")).toBeTruthy();
   });
 });

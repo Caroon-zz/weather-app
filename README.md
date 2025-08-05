@@ -15,7 +15,7 @@ src/
 ├── features/             # Feature-based modules (domain-driven)
 │   ├── weather/          # Weather feature
 │   │   ├── components/   # Weather-specific UI components (WeatherCard, etc.)
-│   │   ├── hooks/        # Custom React hooks (useWeather, useWeatherRedux, etc.)
+│   │   ├── hooks/        # Custom React hooks
 │   │   ├── redux/        # Redux hooks and integration for weather
 │   │   ├── sagas/        # Redux Saga logic for async flows
 │   │   ├── services/     # API and data-fetching logic (e.g., weatherService)
@@ -216,3 +216,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Weather data provided by [Open-Meteo](https://open-meteo.com/)
 - ZIP code geocoding by [Zippopotam.us](http://zippopotam.us/)
 - Built with [Expo](https://expo.dev/) and [React Native](https://reactnative.dev/)
+- Weather code mapping inspired by [weather-sense](https://github.com/erikflowers/weather-sense)
+- Weather icons by [Airycons](https://airycons.com)

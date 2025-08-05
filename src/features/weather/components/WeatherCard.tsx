@@ -10,7 +10,7 @@ import { useWeatherRedux } from "../redux/useWeatherRedux";
 import { weatherCardStyles } from "../styles/weatherCard";
 import type { WeatherCardProps } from "../types";
 
-export const WeatherCard: React.FC<WeatherCardProps> = ({
+const WeatherCardComponent: React.FC<WeatherCardProps> = ({
   unitSystem = "metric",
 }) => {
   const { weatherData } = useWeatherRedux();
@@ -36,7 +36,8 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({
       <View style={weatherCardStyles.row}>
         <Text style={weatherCardStyles.label}>Wind Speed:</Text>
         <Text style={weatherCardStyles.value}>
-          {convertWindSpeed(weatherData.windspeed, unitSystem).toFixed(1)} {getWindSpeedUnit(unitSystem)}
+          {convertWindSpeed(weatherData.windspeed, unitSystem).toFixed(1)}{" "}
+          {getWindSpeedUnit(unitSystem)}
         </Text>
       </View>
 
@@ -47,3 +48,5 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({
     </View>
   );
 };
+
+export const WeatherCard = React.memo(WeatherCardComponent);

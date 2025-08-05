@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, Easing } from "react-native";
 import type { AnimatedWeatherEmojiProps } from "../../features/weather/types";
-import { getWeatherEmoji } from "../../features/weather/utils/weatherEmoji";
+import { iconRequireMap } from "../../features/weather/utils/weatherEmoji";
 import { weatherTabStyles } from "../../styles/weatherTabStyles";
 
 export const ANIMATION_CONSTANTS = {
@@ -17,6 +17,8 @@ export const AnimatedWeatherEmoji: React.FC<AnimatedWeatherEmojiProps> = ({
 }) => {
   const spinAnim = useRef(new Animated.Value(0)).current;
   const flyAnim = useRef(new Animated.Value(-200)).current;
+  const imageSource =
+    code !== undefined && iconRequireMap[code] ? iconRequireMap[code] : null;
 
   useEffect(() => {
     spinAnim.setValue(0);
@@ -44,14 +46,13 @@ export const AnimatedWeatherEmoji: React.FC<AnimatedWeatherEmojiProps> = ({
   });
 
   return (
-    <Animated.Text
+    <Animated.Image
+      source={imageSource}
       style={[
         weatherTabStyles.emoji,
         { transform: [{ rotate: spin }, { translateX: flyAnim }] },
       ]}
       accessibilityLabel={desc}
-    >
-      {getWeatherEmoji(code)}
-    </Animated.Text>
+    />
   );
 };

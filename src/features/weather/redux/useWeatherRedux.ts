@@ -18,8 +18,8 @@ export const useWeatherRedux = () => {
   );
 
   const fetchWeather = useCallback(
-    (zipCode: string) => {
-      dispatch(fetchWeatherRequest(zipCode));
+    (zipCode?: string, lat?: number, lon?: number) => {
+      dispatch(fetchWeatherRequest({ zipCode, lat, lon }));
     },
     [dispatch],
   );

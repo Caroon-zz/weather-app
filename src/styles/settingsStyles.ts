@@ -36,14 +36,18 @@ export const settingsStyles = StyleSheet.create({
     alignItems: "center",
   },
   infoTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
     color: "#007AFF",
-    marginBottom: 10,
+    marginBottom: 16,
+    textAlign: "center",
   },
   infoText: {
-    fontSize: 14,
-    color: "#666",
-    marginBottom: 4,
+    fontSize: 15,
+    color: "#333",
+    marginBottom: 8,
+    textAlign: "center",
+    lineHeight: 22,
+    fontWeight: "400",
   },
 });
