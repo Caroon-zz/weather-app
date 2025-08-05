@@ -1,6 +1,6 @@
 # Weather App 🌤️
 
-A professional React Native weather application built with Expo Router, TypeScript, and modern development practices.
+A React Native weather application built with Expo Router, TypeScript, and modern development practices.  It primarily serves as a testbed and demonstrator.
 
 ## 🏗️ Architecture
 
@@ -65,7 +65,7 @@ app/                      # Expo Router entry points and navigation structure
 
 - **Modern Architecture**: Feature-based organization with clear separation of concerns
 - **TypeScript**: Full type safety throughout the application
-- **Custom Hooks**: Reusable data fetching with React Query
+- **Custom Hooks**: Reusable data fetching with Redux/Redux Toolkit/Sagas/Axios 
 - **Error Handling**: Comprehensive error boundaries and user feedback
 - **Animated UI**: Smooth animations and transitions
 - **Code Quality**: ESLint configuration with strict TypeScript rules
@@ -147,10 +147,11 @@ npx prettier --write .
 Each feature module contains:
 
 - **components/**: Feature-specific UI components
-- **hooks/**: Custom React hooks for data and Redux state (e.g., `useWeather`)
+- **hooks/**: Custom React hooks
 - **redux/**: Redux hooks and integration (e.g., `useWeatherRedux`)
 - **sagas/**: Redux Saga side effects and async logic
 - **slices/**: Redux slices for state management
+- **styles/**: Stylesheets for feature level non-reusable components
 - **services/**: API calls and data transformation
 - **types/**: TypeScript interfaces and type definitions
 - **utils/**: Helper functions and utilities
@@ -163,7 +164,6 @@ Each feature module contains:
 ### Styles (`src/styles/`)
 
 - **Modular Styles**: Feature-specific style modules
-- **Design Tokens**: Colors, spacing, typography constants
 - **Responsive Design**: Screen size and device-specific styling
 
 ## 🔧 Development Guidelines
